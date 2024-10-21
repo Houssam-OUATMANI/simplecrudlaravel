@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
@@ -19,7 +20,12 @@ Route::put("/produits/{product}/edit", [ProductController::class, "update"])->na
 
 Route::get("/categories", [CategoryController::class, "index"]);
 
-// *** Créer un Controller qui s'appelle HomeController'
-// *** Ajouter une action (methode) index
-// *** Retourner le view Welcome
+// *** AUTH
+
+Route::get("/login", [AuthController::class, "login"])->name("login");
+Route::post("/login", [AuthController::class, "handleLogin"])->name("handleLogin");
+
+Route::get("/register", [AuthController::class, "register"])->name("register");
+Route::post("/register", [AuthController::class, "handleRegister"])->name("handleRegister");
+
 
