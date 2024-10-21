@@ -22,10 +22,15 @@ Route::get("/categories", [CategoryController::class, "index"]);
 
 // *** AUTH
 
-Route::get("/login", [AuthController::class, "login"])->name("login");
+Route::get("/login", [AuthController::class, "login"])
+->name("login")
+->middleware("guest");
 Route::post("/login", [AuthController::class, "handleLogin"])->name("handleLogin");
 
 Route::get("/register", [AuthController::class, "register"])->name("register");
 Route::post("/register", [AuthController::class, "handleRegister"])->name("handleRegister");
 
 
+Route::delete("/logout", [AuthController::class, "logout"])
+    ->name("logout")
+    ->middleware("auth");
