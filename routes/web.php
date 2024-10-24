@@ -11,8 +11,14 @@ Route::get("/produits", [ProductController::class, "index"])->name("product.inde
 Route::get("/products/{product}", [ProductController::class, "show"])->name("product.show");
 Route::delete("/products/{product}", [ProductController::class, "destroy"])->name("product.destroy");
 
-Route::get("/produits/ajouter", [ProductController::class, "create"])->name("product.create");
-Route::post("/produits/ajouter", [ProductController::class, "store"])->name("product.store");
+Route::get("/produits/ajouter", [ProductController::class, "create"])
+->name("product.create")
+->middleware("auth")
+;
+Route::post("/produits/ajouter", [ProductController::class, "store"])
+->name("product.store")
+->middleware("auth")
+;
 
 Route::get("/produits/{product}/edit", [ProductController::class, "edit"])->name("product.edit");
 Route::put("/produits/{product}/edit", [ProductController::class, "update"])->name("product.update");

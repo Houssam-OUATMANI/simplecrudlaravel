@@ -11,6 +11,7 @@
 
 
     <p>{{$product->description}}</p>
+    <p>{{$product->user->name}}</p>
 
 </body>
 </html>

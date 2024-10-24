@@ -5,18 +5,22 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StorePostRequest;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
-    public function index() {
-        $products = Product::query()->paginate(1);
+    public function index(Request $request) {
+
+        $products = Product::query()->with("user")->paginate(1);
         //return view("products.index", ["products" => $products]);
         return view("products.index", compact("products"));
     }
 
     public function show (Product $product) {
+            $product = $product->load("user");
            // $id = $request->route("id");
            // $product = Product::query()->where("id", "=", $id)->get();
+
            return view("products.show", compact("product"));
     }
 
@@ -26,7 +30,10 @@ class ProductController extends Controller
     }
 
     public function store(StorePostRequest $request) {
-        Product::create($request->validated());
+        $products = $request->validated();
+
+        $products["user_id"] = Auth::id();
+        Product::create($products);
         return redirect()->route("product.index")->with("success", "Produit ajoute");
     }
 

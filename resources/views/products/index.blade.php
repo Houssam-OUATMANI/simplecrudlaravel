@@ -19,6 +19,7 @@
                     <th>Titre</th>
                     <th>Prix</th>
                     <th>Action</th>
+                    <th>Auteur</th>
                    </tr>
                 </thead>
 
@@ -28,6 +29,7 @@
                                 <td>{{$product->id}}</td>
                                 <td>{{$product->title}}</td>
                                 <td>{{$product->price}}</td>
+
                                 <td>
                                     <a href="{{route("product.show", ["product" => $product->id])}}">Lire la suite</a>
                                     <a href="{{route("product.edit", ["product" => $product] )}}">Editer</a>
@@ -38,6 +40,7 @@
                                     </form>
 
                                 </td>
+                                <td> {{$product->user->name ?? "auteur inexistant"}}</td>
                             </tr>
                         @endforeach
                 </tbody>
